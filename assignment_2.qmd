@@ -193,17 +193,64 @@ V[c(1, 3, 5)]
 
 ## (3i) Subsetting by index
 
+```{r}
+V <- c("Bears", "Lions", "Dolphins", "Eagles", "Bengals")
+
+V[c(1, 3, 5)]
+
+```
+
 ## (3ii) Subsetting using a `for` loop
+
+```{r}
+V <- c("Bears", "Lions", "Dolphins", "Eagles", "Bengals")
+
+result <- c()   # empty vector to store matches
+
+for(i in 1:length(V)) {
+  if(V[i] %in% c("Bears", "Dolphins", "Bengals")) {
+    result <- c(result, V[i])
+  }
+}
+
+result
+
+```
 
 ## (3iii)Returning all values in a single vector (one line of code)
 
+```{r}
+V <- c("Bears", "Lions", "Dolphins", "Eagles", "Bengals")
+
+```
+
 ### (a) Using positive indices
+
+```{r}
+V[c(1, 2, 3, 4, 5)]
+
+```
 
 ### (b) Using negative indices
 
+```{r}
+V[-0]
+
+```
+
 ### (c) Using logical indexing
 
+```{r}
+V[rep(TRUE, length(V))]
+
+```
+
 ### (d) Attempting to subset by names
+
+```{r}
+V["Bears"]
+
+```
 
 # Question 4:
 
