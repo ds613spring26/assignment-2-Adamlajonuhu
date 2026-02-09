@@ -277,13 +277,144 @@ records
     -   `hire_date`\
     -   `dept`
 
-2.  **Convert `hire_date` into a proper `Date` object**, correctly handling all of the different date formats.
+    ```{r}
+    split_records <- strsplit(records, " \\| ")
 
-3.  **Convert `dept` into an ordered factor** with the levels:\
+    ```
+
+    ```{r}
+    name <- sapply(split_records, `[`, 1)
+    hire_date <- sapply(split_records, `[`, 2)
+    dept <- sapply(split_records, `[`, 3)
+
+    ```
+
+```{r}
+name
+
+```
+
+```{r}
+hire_date
+
+```
+
+```{r}
+dept
+
+```
+
+1.  **Convert `hire_date` into a proper `Date` object**, correctly handling all of the different date formats.
+
+    ```{r}
+    hire_date <- as.Date(hire_date, tryFormats = c(
+      "%Y-%m-%d",
+      "%d/%m/%Y",
+      "%B %d, %Y",
+      "%Y/%m/%d",
+      "%m-%d-%Y"
+    ))
+
+
+    ```
+
+    ```{r}
+    hire_date
+
+    ```
+
+2.  **Convert `dept` into an ordered factor** with the levels:\
     `HR`, `FIN`, `IT`, `MKT`.
 
-4.  **Construct a clean data frame** containing the parsed and converted variables.
+```{r}
+dept <- factor(dept,
+               levels = c("HR", "FIN", "IT", "MKT"),
+               ordered = TRUE)
 
-5.  **Add a new variable** called `years_worked` that reports the number of full years each employee has worked as of today.
+```
 
-6.  **Return the final cleaned data frame.**
+```{r}
+dept
+
+```
+
+```{r}
+class(dept)
+
+```
+
+1.  **3.Construct a clean data frame** containing the parsed and converted variables.
+
+```{r}
+employees <- data.frame(
+  name = name,
+  hire_date = hire_date,
+  dept = dept
+)
+
+employees
+
+```
+
+```{r}
+str(employees)
+
+```
+
+1.  **Add a new variable** called `years_worked` that reports the number of full years each employee has worked as of today.
+
+```{r}
+today <- Sys.Date()
+
+```
+
+```{r}
+years_worked <- as.integer(
+  floor(as.numeric(difftime(today, hire_date, units = "days")) / 365.25)
+)
+
+```
+
+```{r}
+employees$years_worked <- years_worked
+
+employees
+
+```
+
+```{r}
+str(employees)
+
+```
+
+1.  **Return the final cleaned data frame.**
+
+```{r}
+employees
+
+```
+
+```{r}
+employees
+
+```
+
+```{r}
+employees <- data.frame(
+  name = name,
+  hire_date = hire_date,
+  dept = dept
+)
+
+today <- Sys.Date()
+
+employees$years_worked <- as.integer(
+  floor(as.numeric(difftime(today, employees$hire_date, units = "days")) / 365.25)
+)
+
+employees
+
+```
+
+```{}
+```
